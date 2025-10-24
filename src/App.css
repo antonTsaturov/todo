@@ -1,0 +1,16 @@
+/* App.css - Main application styles */
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e2233 0%, #764ba2 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
