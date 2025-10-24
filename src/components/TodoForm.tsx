@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import type { TodoFormData } from '../types/Todo';
-import '../styles/TodoForm.css';
+import '../styles/AddTodo.css';
 
-interface AddTodoProps {
+interface TodoFormProps {
   onAddTodo: (todo: TodoFormData) => void;
 }
 
-const TodoForm: React.FC<AddTodoProps> = ({ onAddTodo }) => {
+const TodoForm: React.FC<TodoFormProps> = ({ onAddTodo }) => {
   const [formData, setFormData] = useState<TodoFormData>({
     text: '',
     priority: 'medium'

@@ -1,47 +1,21 @@
 import React, { useState } from 'react';
-import type { Todo, FilterType } from '../types/Todo';
+import type { FilterType } from '../types/Todo';
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
+import { useTodos } from '../hooks/useTodos';
 import '../styles/TodoList.css';
 
 const TodoList: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
   const [filter, setFilter] = useState<FilterType>('all');
-
-  const addTodo = (formData: { text: string; priority: 'low' | 'medium' | 'high' }) => {
-    const newTodo: Todo = {
-      id: Date.now().toString(),
-      text: formData.text,
-      completed: false,
-      createdAt: new Date(),
-      priority: formData.priority
-    };
-    setTodos(prev => [newTodo, ...prev]);
-  };
-
-  const toggleTodo = (id: string) => {
-    setTodos(prev => 
-      prev.map(todo => 
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
-  };
-
-  const deleteTodo = (id: string) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id));
-  };
-
-  const editTodo = (id: string, newText: string) => {
-    setTodos(prev => 
-      prev.map(todo => 
-        todo.id === id ? { ...todo, text: newText } : todo
-      )
-    );
-  };
-
-  const clearCompleted = () => {
-    setTodos(prev => prev.filter(todo => !todo.completed));
-  };
+  const {
+    todos,
+    addTodo,
+    toggleTodo,
+    deleteTodo,
+    editTodo,
+    clearCompleted,
+    clearAllTodos
+  } = useTodos();
 
   const filteredTodos = todos.filter(todo => {
     switch (filter) {
@@ -106,6 +80,14 @@ const TodoList: React.FC = () => {
             onClick={clearCompleted}
           >
             Clear Completed
+          </button>
+        )}
+        {todos.length > 0 && (
+          <button
+            className="clear-all-button"
+            onClick={clearAllTodos}
+          >
+            Clear All
           </button>
         )}
       </div>
